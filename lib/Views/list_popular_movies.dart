@@ -8,9 +8,9 @@ import 'package:test_hello_cse/Services/movies_service.dart';
 import 'package:provider/provider.dart';
 import 'package:test_hello_cse/Views/bottomBar.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:test_hello_cse/Views/favorite_movies.dart';
 
 class MoviesPopularList extends StatefulWidget {
+  // ignore: use_key_in_widget_constructors
   const MoviesPopularList({Key? key});
 
   @override
@@ -19,11 +19,18 @@ class MoviesPopularList extends StatefulWidget {
 
 class _MoviesPopularListState extends State<MoviesPopularList> {
   List<PopularMovies>? _listPopularMovies = [];
+  List<PopularMovies> _listFavoriteMovies = [];
 
   @override
   void initState() {
     super.initState();
     initializeDateFormatting();
+  }
+
+  _getFavorite(value) {
+    for (var i = 0; i < value.length; i++) {
+      _listFavoriteMovies = value;
+    }
   }
 
   _getData() async {
@@ -158,6 +165,8 @@ class _MoviesPopularListState extends State<MoviesPopularList> {
                                                     255, 64, 172, 68),
                                               ),
                                             );
+                                            _getFavorite(value.lst);
+                                            print(_listFavoriteMovies);
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.all(10),
